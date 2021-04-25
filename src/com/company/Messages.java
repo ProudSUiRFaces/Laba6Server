@@ -1,9 +1,7 @@
 package com.company;
 
 import java.io.Serializable;
-import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Messages implements Serializable {
@@ -22,7 +20,7 @@ public class Messages implements Serializable {
     }
     public Enter getEnum(){
         try{
-            if (this.strings.get(0).getClass()==Enter.class){
+            if (this.strings.get(0).getClass()== Enter.class){
                 return (Enter) this.strings.get(0);
             }
             else {

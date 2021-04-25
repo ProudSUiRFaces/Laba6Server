@@ -92,8 +92,7 @@ public class InputDecoder {
         str = str.trim();
 
         try {
-            Long x = Long.valueOf(str);
-            return x;
+            return Long.valueOf(str);
         } catch (Exception e) {
             return null;
         }
@@ -107,7 +106,7 @@ public class InputDecoder {
         str = str.trim();
         int n = 0;
         try {
-            n = Integer.valueOf(str);
+            n = Integer.parseInt(str);
         } finally {
             return n;
         }
@@ -121,8 +120,7 @@ public class InputDecoder {
         str = str.trim();
 
         try {
-            float x = Float.valueOf(str);
-            return x;
+            return Float.valueOf(str);
         } catch (Exception e) {
             return null;
         }
@@ -157,9 +155,7 @@ public class InputDecoder {
      * @return boolean
      */
     static boolean isExpelledStudents(int o) {
-        if (o > 0) {
-            return true;
-        } else return false;
+        return o > 0;
     }
     /**
      * check value
@@ -167,9 +163,7 @@ public class InputDecoder {
      * @return
      */
     static boolean isNormalStudentsCount(int o) {
-        if (o > 0) {
-            return true;
-        } else return false;
+        return o > 0;
     }
     /**
      * check value
@@ -179,11 +173,7 @@ public class InputDecoder {
     static boolean isNormalCoordinates(StudyGroup.Coordinates o) {
         //String s = "";
         try {
-            if (o.getY() != null && o.getX() != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return o.getY() != null && o.getX() != null;
         } catch (NullPointerException e) {
             return false;
         }
@@ -198,7 +188,7 @@ public class InputDecoder {
         try {
             o = o.trim();
             //System.out.println(o);
-            if (o != null && o != "" && o.length() != 0) {
+            if (o != "" && o.length() != 0) {
                 return true;
             } else {
                 return false;
@@ -213,11 +203,7 @@ public class InputDecoder {
      * @return
      */
     static boolean isNormalEnum(Object o) {
-        if (o != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return o != null;
     }
     /**
      * check value
@@ -225,9 +211,7 @@ public class InputDecoder {
      * @return
      */
     static boolean isNormalLocation(StudyGroup.Location l) {
-        if (l.getX() != null && l.getY() != null && l.getZ() != null && l.getName() != null) {
-            return true;
-        } else return false;
+        return l.getX() != null && l.getY() != null && l.getZ() != null && l.getName() != null;
     }}
 /**
  * all stuff here

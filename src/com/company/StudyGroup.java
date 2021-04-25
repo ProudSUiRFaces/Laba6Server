@@ -3,6 +3,9 @@ package com.company;
 import java.io.Serializable;
 
 public class StudyGroup implements Comparable, Serializable {
+
+    private static final long serialVersionUID = 42L;
+
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -17,7 +20,7 @@ public class StudyGroup implements Comparable, Serializable {
      *
      * @return name
      */
-    public String get_name(){
+    public String getName(){
         return this.name;
     }
 
@@ -25,7 +28,7 @@ public class StudyGroup implements Comparable, Serializable {
      *
      * @return id
      */
-    public int get_id(){
+    public int getId(){
         return this.id;
     }
 
@@ -33,8 +36,8 @@ public class StudyGroup implements Comparable, Serializable {
      *
      * @return coordinates
      */
-    String getCoordinates(){
-        return this.coordinates.getX().toString()+" "+this.coordinates.getY().toString();
+    public Coordinates getCoordinates(){
+        return this.coordinates;
     }
 
     /**
@@ -145,7 +148,7 @@ public class StudyGroup implements Comparable, Serializable {
      */
     @Override
     public String toString() {
-        String s = ("Group ID: " + this.get_id() + "\n" + "Group name: " + this.get_name() + "\n" + "Group coordinates: x=" + this.coordinates.getX() + " y="+this.coordinates.getY() + "\n");
+        String s = ("Group ID: " + this.getId() + "\n" + "Group name: " + this.getName() + "\n" + "Group coordinates: x=" + this.coordinates.getX() + " y="+this.coordinates.getY() + "\n");
         s += ("Group students count: " + this.getStudentsCount() +"\n"+ "Group expelled students; " + this.getExpelledStudents() + "\n");
         s += ("Group education form: " + this.getFormOfEducation() + "\n" + "Group semester: " + this.getSemesterEnum());
         s += ("\n" + "Group admin: \n name: " + this.getGroupAdmin().getName() + "\n " + "eye color: " + this.getGroupAdmin().getEyeColor() + "\n");

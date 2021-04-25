@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.time.format.DateTimeFormatter;
@@ -12,197 +10,63 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Collection {
-    public Queue<StudyGroup> Collection = new PriorityQueue<>();
+    public Queue<StudyGroup> collection;
     public String adress1;
     public String adress2;
-    //public ZonedDateTime time = ;
+
+    public Collection(){
+        collection = new PriorityQueue<StudyGroup>();
+    }
+
     /**
      * adds new element
      * @param studyGroup
      */
-    void add(StudyGroup studyGroup){
-        this.Collection.add(studyGroup);
-    }
-    /**
-     * creates and adds new element
-     * @return
-     */
-    StudyGroup addElement() {
-        StudyGroup Group = new StudyGroup();
-        System.out.print("Please, enter the name ");
-        Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
-        while (!InputDecoder.isNormalName(str)) {
-            System.out.print("Please, enter valid name ");
-            str = scanner.nextLine();
-            if (str == ""){
-                str= null;
-            }
-        }
-        Group.setName(str);
-        //System.out.println(Group.get_name());
-        StudyGroup.Coordinates c = new StudyGroup.Coordinates();
-        c.setX(null);
-        c.setY(null);
-
-        while (!InputDecoder.isNormalCoordinates(c)) {
-            c.setX(null);
-            c.setY(null);
-            System.out.print("Please enter X coordinate ");
-            str = scanner.nextLine();
-            Float X = InputDecoder.toCoordinatesX(str);
-            //System.out.println(X);
-            System.out.print("Please enter Y coordinate ");
-            str = scanner.nextLine();
-            Integer Y = InputDecoder.toCoordinatesY(str);
-            //System.out.println(Y);
-            c.setY(Y);
-            c.setX(X);
-            //System.out.println(Main.isNormalCoordinates(c));
-        }
-        Group.setCoordinates(c);
-        //System.out.println(Group.getCoordinates());
-
-        Integer n = null;
-
-        while(n == null){
-            System.out.print("Enter count of students ");
-            str = scanner.nextLine();
-            n = InputDecoder.toStudentsCount(str);
-        }
-        Group.setStudentsCount(n);
-        //System.out.println(Group.getStudentsCount());
-
-        n = null;
-        while(n == null){
-            System.out.print("Enter count of expelled students ");
-            str = scanner.nextLine();
-            n = InputDecoder.toStudentsCount(str);
-        }
-        Group.setExpelledStudents(n);
-        //System.out.println(Group.getExpelledStudents());
-
-        StudyGroup.FormOfEducation form = null;
-        boolean check = false;
-        while(!check){
-            System.out.print("Enter form of education, possible choices: DISTANCE_EDUCATION, FULL_TIME_EDUCATION, EVENING_CLASSES ");
-            try{
-                str = scanner.nextLine();
-                form = InputDecoder.findEnum1(str);
-                if (form != null){
-                    check = true;
-                }
-            }catch (Exception e){}
-        }
-        Group.setFormOfEducation(form);
-        //System.out.println(Group.getFormOfEducation());
-
-        StudyGroup.Semester form1 = null;
-        check = false;
-        while(check == false){
-            System.out.print("Enter semester, possible choices: FOURTH, FIFTH, EIGHTH ");
-            try{
-                str = scanner.nextLine();
-                form1 = InputDecoder.findEnum2(str);
-                if (form1 != null){
-                    check = true;
-                }
-            }catch (Exception e){}
-        }
-        Group.setSemesterEnum(form1);
-        //System.out.println(Group.getSemesterEnum());
-
-        StudyGroup.Person person = new StudyGroup.Person();
-        System.out.print("Enter admin's name ");
-
-        str = scanner.nextLine();
-
-        while (!InputDecoder.isNormalName(str)) {
-            System.out.print("Please, enter valid name ");
-            str = scanner.nextLine();
-        }
-
-        person.setName(str);
-
-        StudyGroup.Color color = null;
-        check = false;
-        while(check == false){
-            System.out.print("Enter eye color of the admin, possible choices: GREEN, RED, BLUE, YELLOW, BROWN, BLACK, ORANGE, WHITE ");
-            try{
-                str = scanner.nextLine();
-                color = InputDecoder.findEnum3(str);
-                if (color != null){
-                    check = true;
-                }
-            }catch (Exception e){}
-        }
-        person.setEyeColor(color);
-
-        color = null;
-        check = false;
-        while(check == false){
-            System.out.print("Enter hair color of the admin, possible choices: GREEN, RED, BLUE, YELLOW, BROWN, BLACK, ORANGE, WHITE ");
-            try{
-                str = scanner.nextLine();
-                color = InputDecoder.findEnum3(str);
-                if (color != null){
-                    check = true;
-                }
-            }catch (Exception e){}
-        }
-        person.setHairColor(color);
-
-        StudyGroup.Location location = new StudyGroup.Location();
-        location.setLocation(null, null, null, null);
-
-        while (!InputDecoder.isNormalLocation(location) ) {
-            location.setLocation(null, null, null, null);
-            System.out.print("Please enter X coordinate ");
-            str = scanner.nextLine();
-            Long X = InputDecoder.toLocation(str);
-            //System.out.println(X);
-            System.out.print("Please enter Y coordinate ");
-            str = scanner.nextLine();
-            Long Y = InputDecoder.toLocation(str);
-            //System.out.println(Y);
-            System.out.print("Please enter Z coordinate ");
-            str = scanner.nextLine();
-            Long Z = InputDecoder.toLocation(str);
-            System.out.print("Please enter name ");
-            str = scanner.nextLine();
-            location.setLocation(X,Y,Z,str);
-        }
-        person.setLocation(location);
-        Group.setGroupAdmin(person);
-
-        System.out.println("seems all right");
-        return Group;
-
-
+    public void add(StudyGroup studyGroup){
+        this.collection.add(studyGroup);
     }
     /**
      * shows all elements
      */
-    void show(){
-        for(int i= 0; i<Collection.size();i++){
-            StudyGroup Group = new StudyGroup();
-            Group = Collection.poll();
-            System.out.println(Group.toString());
-            Collection.add(Group);
-            //System.out.println(Collection.peek().get_id() + " " + Collection.poll().get_name());
+    public String show(){
+        List<List<String>> rows = new ArrayList<>();
+        List<String> headers = Arrays.asList("Name", "id", "Coordinates ", "CreationDate", "StudentsCount", "ExpelledStudents", "FormOfEducation", "SemesterEnum", "GroupAdmin");
+        rows.add(headers);
+        StringBuilder coord = new StringBuilder();
+        ArrayList<String> sb = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (StudyGroup sg : collection) {
+            sb.add(sg.getName());sb.add(String.valueOf(sg.getId()));
+
+            coord.append(sg.getCoordinates().getX()).append(", ").append(sg.getCoordinates().getY());
+            sb.add(coord.toString());
+            coord.delete(0, coord.length());
+
+            sb.add(sg.getCreationDate().toString());
+
+            sb.add(sg.getStudentsCount().toString()); sb.add(sg.getExpelledStudents().toString());
+
+            sb.add(sg.getFormOfEducation().toString());
+            sb.add(sg.getSemesterEnum().toString());
+
+            sb.add(sg.getGroupAdmin().getName());
+
+            rows.add((List<String>) sb.clone());
+            sb.clear();
         }
+        return Terminal.formatAsTable(rows);
     }
     /**
      * removes element
      * @param n
      */
     void remove_by_ID(Integer n){
-        for(int i= 0; i<this.Collection.size();i++){
+        for(int i= 0; i<this.collection.size();i++){
             StudyGroup Group = new StudyGroup();
-            Group = this.Collection.poll();
-            if (Group.get_id() != n)
+            Group = this.collection.poll();
+            if (Group.getId() != n)
                 //System.out.println(Group.toString());
-                Collection.add(Group);
+                collection.add(Group);
         }
         System.out.println("Element "+ n +" was removed");
     }
@@ -210,8 +74,8 @@ public class Collection {
      * removes all
      */
     void clear(){
-        for(int i=0; i<=Collection.size();i++){
-            Collection.poll();
+        for(int i=0; i<=collection.size();i++){
+            collection.poll();
         }
         System.out.println("Collection is clear");
     }
@@ -221,12 +85,12 @@ public class Collection {
      */
     void remove_greater(int id){
         try{
-            StudyGroup clt[] = new StudyGroup[this.Collection.size()];
-            int n = this.Collection.size();
+            StudyGroup clt[] = new StudyGroup[this.collection.size()];
+            int n = this.collection.size();
             StudyGroup group = new StudyGroup();
             for (int i = 0; i < n; i++) {
-                clt[i] = this.Collection.remove();
-                if (clt[i].get_id() == id){
+                clt[i] = this.collection.remove();
+                if (clt[i].getId() == id){
                     group = clt[i];
                 }
             }
@@ -243,10 +107,10 @@ public class Collection {
      * print unique only
      */
     void print_unique(){
-        int n = this.Collection.size();
-        StudyGroup clt[] = new StudyGroup[this.Collection.size()];
+        int n = this.collection.size();
+        StudyGroup clt[] = new StudyGroup[this.collection.size()];
         for (int i = 0; i < n; i++) {
-            clt[i] = this.Collection.remove();
+            clt[i] = this.collection.remove();
         }
         int element;
         boolean check;
@@ -254,7 +118,7 @@ public class Collection {
             element = clt[i].getStudentsCount();
             check = false;
             for (int i1 = 0; i1 < n; i1++){
-                if (element == clt[i1].getStudentsCount() && clt[i].get_id() != clt[i1].get_id()){
+                if (element == clt[i1].getStudentsCount() && clt[i].getId() != clt[i1].getId()){
                     check = true;
                 }
             }
@@ -264,7 +128,7 @@ public class Collection {
 
         }
         for (int i = 0; i< n; i++){
-            this.Collection.add(clt[i]);
+            this.collection.add(clt[i]);
         }
     }
     /**
@@ -272,10 +136,10 @@ public class Collection {
      * @param group
      */
     void add_if_lowest(StudyGroup group){
-        int n = this.Collection.size();
-        StudyGroup clt[] = new StudyGroup[this.Collection.size()];
+        int n = this.collection.size();
+        StudyGroup clt[] = new StudyGroup[this.collection.size()];
         for (int i = 0; i < n; i++) {
-            clt[i] = this.Collection.remove();
+            clt[i] = this.collection.remove();
         }
         boolean check = true;
         for (int i = 0; i < n; i++){
@@ -296,12 +160,12 @@ public class Collection {
      */
     void remove_lower(int id){
         try{
-            StudyGroup clt[] = new StudyGroup[this.Collection.size()];
-            int n = this.Collection.size();
+            StudyGroup clt[] = new StudyGroup[this.collection.size()];
+            int n = this.collection.size();
             StudyGroup group = new StudyGroup();
             for (int i = 0; i < n; i++) {
-                clt[i] = this.Collection.remove();
-                if (clt[i].get_id() == id){
+                clt[i] = this.collection.remove();
+                if (clt[i].getId() == id){
                     group = clt[i];
                 }
             }
@@ -319,13 +183,13 @@ public class Collection {
      * @param str
      */
     void contain_name(String str){
-        StudyGroup clt[] = new StudyGroup[this.Collection.size()];
-        int n = this.Collection.size();
+        StudyGroup clt[] = new StudyGroup[this.collection.size()];
+        int n = this.collection.size();
         StudyGroup group = new StudyGroup();
         for (int i = 0; i < n; i++) {
-            clt[i] = this.Collection.remove();
-            if (clt[i].get_name().contains(str)){
-                System.out.println(clt[i].get_name());
+            clt[i] = this.collection.remove();
+            if (clt[i].getName().contains(str)){
+                System.out.println(clt[i].getName());
             }
         }
         for (int i = 0; i < n; i++){
@@ -343,15 +207,15 @@ public class Collection {
         sb.append("<Base>").append("\n");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        int n = this.Collection.size();
+        int n = this.collection.size();
         StudyGroup clt[] = new StudyGroup[n];
         for (int i = 0; i<n;i++){
-            clt[i] = this.Collection.remove();
+            clt[i] = this.collection.remove();
         }
         for (int i = 0; i < n; i++) {
             sb.append("\t").append("<StudyGroup>").append("\n");
 
-            sb.append("\t\t").append("<Name>").append(clt[i].get_name()).append("</Name>").append("\n");
+            sb.append("\t\t").append("<Name>").append(clt[i].getName()).append("</Name>").append("\n");
             sb.append("\t\t").append("<Coordinates>").append("\n");
             sb.append("\t\t\t").append("<x>").append(clt[i].getXCoord()).append("</x>").append("\n");
             sb.append("\t\t\t").append("<y>").append(clt[i].getYCoord()).append("</y>").append("\n");
@@ -413,6 +277,7 @@ public class Collection {
     public StudyGroup addFromFile(Scanner scanner) {
         try {
             StudyGroup group = new StudyGroup();
+
             group.setName(scanner.nextLine());
             StudyGroup.Coordinates coordinates = new StudyGroup.Coordinates();
             coordinates.setY(Integer.valueOf(scanner.nextLine()));
@@ -427,6 +292,7 @@ public class Collection {
             StudyGroup.Location location = new StudyGroup.Location();
             location.setLocation(Long.valueOf(scanner.nextLine()), Long.valueOf(scanner.nextLine()), Long.valueOf(scanner.nextLine()), scanner.nextLine());
             person.setLocation(location);
+
             return group;
 
         } catch (Exception e) {
